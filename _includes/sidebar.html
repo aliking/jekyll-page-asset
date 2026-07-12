@@ -2,10 +2,10 @@
   <header class="sidebar-header">
     <div class="sidebar-name">
       <a
-      {% if page.url contains '/about' %}
-      href="{{ '/' | relative_url }}"
+      {% if page.url contains '/about' or page.url contains 'projects' %}
+        href="{{ '/' | relative_url }}"
       {% else %}
-      href="{{ '/about' | relative_url }}"
+        href="{{ '/about' | relative_url }}" style="cursor:help"
       {% endif %}>
         <h1>Cameron King</h1>
       </a>
@@ -25,21 +25,20 @@
   <div class="sidebar-menu-content" id="sidebar-menu-content">
     {% assign all_projects = site.projects %}
     {% if all_projects.size > 0 %}
-    <div class="grid-2" style="margin-top: 2rem;">
-      {% assign colors = "teal,purple,pink,yellow" | split: "," %}
+    <div class="tapestack">
       {% for project in all_projects %}
+      <div class="tape">
         <a href="{{ project.url | relative_url }}" style="text-decoration: none; display: block;">
-          <div class="tape">
             <h3 class="title">{{ project.title }}</h3>
-          </div>
-        </a>
+          </a>
+        </div>
       {% endfor %}
     </div>
     {% else %}
     <p style="color: #9898b8; font-style: italic; margin-top: 2rem;">Projects incoming — check back soon.</p>
     {% endif %}
-    {% include side_footer.html %}
   </div>
+  {% include side_footer.html %}
 </aside>
 
 <script>
