@@ -15,7 +15,7 @@ module Jekyll
 
       def get_full_asset_path(ctx)
         project_name = ctx.registers[:page].url.split('/').last
-        asset_root = my_config = Jekyll.configuration['project_asset']['asset_root'].split('/')
+        asset_root = Jekyll.configuration['project_asset']['asset_root'].split('/')
         (asset_root << project_name << @filename).join('/')
       end
 

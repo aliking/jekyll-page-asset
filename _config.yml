@@ -56,3 +56,8 @@ exclude:
 # custom
 project_asset:
   asset_root: assets/project_media
+
+stack_transform:
+  seed: 42
+  translate_max: 20
+  rotate_max: 10
