@@ -18,7 +18,7 @@
     </filter>
     <mask id="bg-dirt-mask" x="524.073" y="709.92" width="1279.85" height="98.468"
       maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" style="mask-type: alpha;">
-      <image href="/assets/images/noteback.png" x="524.073" y="709.92" width="1279.85" height="98.468"
+      <image href="/assets/site_media/noteback.png" x="524.073" y="709.92" width="1279.85" height="98.468"
         preserveAspectRatio="none" filter="url(#dirt-alpha-map)" />
     </mask>
   </defs>

@@ -2,7 +2,7 @@
 layout: project
 type: vhs
 stack_style: tape1
-title: "The Zombie Film After Shit"
+title: "The Zombie Film After School"
 show_title: false
 hero: "image.png"
 ---

@@ -1,9 +1,18 @@
 ---
 layout: project
 type: notebook
-stack_style: notebook1
-title: Big Texture
+stack_style: drawing
+title: "Sketches: Dec '23 - Mar '24"
 show_title: true
 ---
 
 {% gallery gallery1 %}
+
+
+Big texture is a study in pludercore collage. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+{% project_asset death.jpg alt="wow what is that?" %}
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+{% gallery gallery2 %}

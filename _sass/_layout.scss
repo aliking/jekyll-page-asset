@@ -545,7 +545,7 @@
 
 // ── Project gallery ─────────────────────────────────────────
 .project-gallery {
-  margin-top: $spacing-xl;
+  margin: $spacing-xl 0;
 }
 
 .project-gallery-grid {
@@ -595,6 +595,23 @@
 .project-gallery-empty {
   color: $text-muted;
   font-style: italic;
+}
+
+// __ Video ___________________________________________________
+.background-video {
+  width: 100%;
+  height: auto;
+}
+
+.foreground-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: $spacing-xl 0;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  background: $bg-card;
+  box-shadow: $shadow-card;
 }
 
 // ── Gallery lightbox ────────────────────────────────────────

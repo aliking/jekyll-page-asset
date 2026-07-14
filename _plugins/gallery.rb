@@ -1,29 +1,28 @@
 # frozen_string_literal: true
 
 require "cgi"
+require_relative "project_asset"
 
 module Jekyll
-  module Gallery
+  module ProjectAsset
     class GalleryTag < Liquid::Tag
+      include TagHelpers
+
       SUPPORTED_IMAGE_EXTENSIONS = %w[.jpg .jpeg .png .webp .avif .gif].freeze
 
       def initialize(tag_name, markup, options)
         super
-        @gallery_id = markup.to_s.strip
+        @gallery_id, = parse_tag_markup(markup)
+        @gallery_id = @gallery_id.to_s.strip
       end
 
       def render(context)
         return "" if @gallery_id.empty?
 
-        site = context.registers[:site]
-        page = context.registers[:page]
+        gallery_asset_root = project_asset_relative_path(context, @gallery_id)
+        return "" if gallery_asset_root.nil? || gallery_asset_root.empty?
 
-        project_name = project_slug_from_page(page)
-        return "" if project_name.nil? || project_name.empty?
-
-        asset_root = Jekyll.configuration.dig("project_asset", "asset_root") || "assets/project_media"
-        gallery_asset_root = File.join(asset_root, project_name, @gallery_id)
-        source_directory = File.join(site.source, gallery_asset_root)
+        source_directory = project_asset_source_path(context, @gallery_id)
 
         images = discover_images(source_directory)
 
@@ -70,11 +69,6 @@ module Jekyll
            .sort_by(&:downcase)
       end
 
-      def project_slug_from_page(page)
-        page_url = page["url"] || page.url
-        page_url.to_s.split("/").reject(&:empty?).last
-      end
-
       def render_picture(context, path)
         escaped_path = path.gsub('"', '\\"')
         liquid = "{% picture \"#{escaped_path}\" %}"
@@ -103,4 +97,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag("gallery", Jekyll::Gallery::GalleryTag)
+Liquid::Template.register_tag("gallery", Jekyll::ProjectAsset::GalleryTag)

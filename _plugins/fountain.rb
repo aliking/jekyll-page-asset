@@ -2,37 +2,36 @@
 
 require "net/http"
 require "base64"
+require_relative "project_asset"
 
 module Jekyll
-  module Fountain
+  module ProjectAsset
     class FountainTag < Liquid::Tag
+      include TagHelpers
+
       def initialize(tag_name, markup, options)
         super
 
-        # Split the markup into file name and opts
-        @filename, @rest = markup.split(' ', 2)
-      end
-
-      def get_full_asset_path(ctx)
-        project_name = ctx.registers[:page].url.split('/').last
-        asset_root = Jekyll.configuration['project_asset']['asset_root'].split('/')
-        (asset_root << project_name << @filename).join('/')
+        # Split the markup into file name and opts.
+        @filename, @rest = parse_tag_markup(markup)
       end
 
       def render(context)
-        site = context.registers[:site]
+        site = tag_site(context)
         include_path = File.join(site.source, "_includes", "fountain.html")
 
         unless File.exist?(include_path)
           raise IOError, "fountain: include file not found at #{include_path}"
         end
 
-        full_script_path = get_full_asset_path(context)
+        full_script_path = project_asset_source_path(context, @filename)
+        return "" if full_script_path.nil? || full_script_path.empty?
+
         script_text = File.read(full_script_path)
 
         template = Liquid::Template.parse(File.read(include_path))
 
-        context["script_text"] = script_text
+        context["include"] = { "script_text" => script_text }
         template.render(context)
       end
     end
@@ -40,4 +39,4 @@ module Jekyll
 end
 
 
-Liquid::Template.register_tag("fountain", Jekyll::Fountain::FountainTag)
+Liquid::Template.register_tag("fountain", Jekyll::ProjectAsset::FountainTag)
