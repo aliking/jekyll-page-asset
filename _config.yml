@@ -60,4 +60,3 @@ project_asset:
 stack_transform:
   seed: 69
   translate_max: 10
-  rotate_max: 10

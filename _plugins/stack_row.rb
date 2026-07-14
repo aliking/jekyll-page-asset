@@ -18,7 +18,6 @@ require 'cgi'
 #   stack_transform:
 #     seed: 42
 #     translate_max: 20
-#     rotate_max: 7
 
 module Jekyll
   class StackRowTag < Liquid::Tag
@@ -56,11 +55,9 @@ module Jekyll
       cfg         = site.config.fetch('stack_transform', {})
       seed        = cfg.fetch('seed', 42).to_i
       tx_max      = cfg.fetch('translate_max', 20).to_f
-      ry_max      = cfg.fetch('rotate_max', 7).to_f
 
       project_url = project.url.to_s
       translate_x = seeded_rand("#{project_url}tx", seed, -tx_max, tx_max)
-      rotate_y    = seeded_rand("#{project_url}ry", seed, -ry_max, ry_max)
 
       is_current  = current_url.include?(project_url)
       link_class  = is_current ? 'project-stack-item disabled' : 'project-stack-item'
@@ -76,7 +73,7 @@ module Jekyll
 
       <<~HTML
         <div class="#{row_class}">
-          <a class="#{link_class}" style="transform: translateX(#{translate_x}px) rotateY(#{rotate_y}deg);" href="#{href}">
+          <a class="#{link_class}" style="transform: translateX(#{translate_x}px);" href="#{href}">
             <div class="#{art_class}" aria-hidden="true">
               #{stack_svg}
             </div>
