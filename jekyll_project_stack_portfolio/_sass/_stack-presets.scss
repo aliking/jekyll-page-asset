@@ -6,7 +6,7 @@
 
 
 */
-.tape1 {
+.tape {
   --tab_unlocked: 1; // 0 or 1 to set whether the VHS lock tab is removed
   --color1: #305198;
   --color2: #305198;
@@ -18,17 +18,12 @@
   ;
 }
 
-.notebook1 {
+.notebook {
   --notebook-color: #c74719;
   --label-color: #ffa008;
 }
 
-.drawing {
-  --notebook-color: #100501;
-  --label-color: #ffffff;
-}
-
-.cd1 {
+.cd {
   --color1: #5036f5;
   --color2: #12176a;
   --label-color: #f7f0e5;
