@@ -112,7 +112,13 @@ module Jekyll
 
     def read_stack_svg(site, stack_type)
       svg_file = STACK_SVG_FILES.fetch(stack_type, STACK_SVG_FILES['tape'])
-      File.read(File.join(site.source, '_includes', 'components', 'sidebar', svg_file)).strip
+      site_svg_path = File.join(site.source, '_includes', 'components', 'sidebar', svg_file)
+      return File.read(site_svg_path).strip if File.exist?(site_svg_path)
+
+      gem_svg_path = File.expand_path("../_includes/components/sidebar/#{svg_file}", __dir__)
+      return File.read(gem_svg_path).strip if File.exist?(gem_svg_path)
+
+      ''
     rescue Errno::ENOENT
       ''
     end

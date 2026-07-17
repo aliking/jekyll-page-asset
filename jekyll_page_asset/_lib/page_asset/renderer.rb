@@ -89,6 +89,11 @@ module Jekyll
         include_path = File.join(site.source, "_includes", "page_asset", "#{@type}.html")
 
         unless File.exist?(include_path)
+          gem_include_path = File.expand_path("../../_includes/page_asset/#{@type}.html", __dir__)
+          include_path = gem_include_path if File.exist?(gem_include_path)
+        end
+
+        unless File.exist?(include_path)
           raise IOError, "page_asset: include file not found at #{include_path}"
         end
 
