@@ -11,7 +11,7 @@ layout: default
     </div>
     {% if page.image %}
       <div class="header-image-wrapper">
-      {% picture "{{ page.image }}" --alt "{{ page.title }}" --height "300" %}
+        <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" style="height: 300px; width: auto;">
       </div>
     {% endif %}
   </header>

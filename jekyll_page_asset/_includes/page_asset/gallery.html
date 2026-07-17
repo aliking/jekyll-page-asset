@@ -22,10 +22,10 @@
 
       if (controlsMount) {
         controlsMount.innerHTML =
-          '<div class="sidebar-gallery-controls" id="sidebar-gallery-controls" data-open="false" hidden aria-label="Gallery controls">' +
-          '<button class="btn gallery-control-button" type="button" id="gallery-prev" data-gallery-focusable="true" aria-label="Previous image">&lt;&lt;</button>' +
-          '<button class="btn gallery-control-button" type="button" id="gallery-close" data-gallery-focusable="true">Show Thumbnails</button>' +
-          '<button class="btn gallery-control-button" type="button" id="gallery-next" data-gallery-focusable="true" aria-label="Next image">&gt;&gt;</button>' +
+          '<div class="gallery-controls" id="gallery-controls" hidden aria-label="Gallery controls">' +
+          '<button class="btn gallery-control-button" type="button" id="gallery-prev" aria-label="Previous image">&lt;&lt;</button>' +
+          '<button class="btn gallery-control-button" type="button" id="gallery-close">Show Thumbnails</button>' +
+          '<button class="btn gallery-control-button" type="button" id="gallery-next" aria-label="Next image">&gt;&gt;</button>' +
           '</div>';
         controlsMount.setAttribute(MOUNTED_ATTR, "true");
       }
@@ -37,10 +37,10 @@
     function initLightbox() {
       var lightbox = document.getElementById("gallery-lightbox");
       var lightboxImage = document.getElementById("gallery-lightbox-image");
-      var mainContent = document.getElementById("main-content");
-      var focusableSelector = "[data-gallery-focusable='true']:not([hidden]):not([disabled])";
+      var lightboxMount = document.getElementById("page-asset-gallery-lightbox");
+      var focusableSelector = ".gallery-controls .gallery-control-button";
 
-      if (!lightbox || !lightboxImage || !mainContent) {
+      if (!lightbox || !lightboxImage) {
         return;
       }
 
@@ -51,6 +51,29 @@
         items: [],
         trigger: null
       };
+
+      function applyVisibleBounds() {
+
+        var rect = lightboxMount.getBoundingClientRect();
+        var left = Math.max(0, rect.left);
+        var top = Math.max(0, rect.top);
+        var right = Math.min(window.innerWidth, rect.right);
+        var bottom = Math.min(window.innerHeight, rect.bottom);
+        var width = Math.max(0, right - left);
+        var height = Math.max(0, bottom - top);
+
+        lightbox.style.left = left + "px";
+        lightbox.style.top = top + "px";
+        lightbox.style.width = width + "px";
+        lightbox.style.height = height + "px";
+      }
+
+      function onViewportChange() {
+        if (!state.open) {
+          return;
+        }
+        applyVisibleBounds();
+      }
 
       function getGalleryItems(galleryId) {
         var container = document.querySelector("[data-gallery='" + galleryId + "']");
@@ -115,6 +138,7 @@
         state.index = Math.max(0, Math.min(index, items.length - 1));
         state.trigger = trigger || document.activeElement;
 
+        applyVisibleBounds();
         lightbox.hidden = false;
         document.body.classList.add("gallery-lightbox-open");
         renderImage();
@@ -134,6 +158,10 @@
         state.trigger = null;
 
         lightbox.hidden = true;
+        lightbox.style.left = "";
+        lightbox.style.top = "";
+        lightbox.style.width = "";
+        lightbox.style.height = "";
         lightboxImage.src = "";
         lightboxImage.alt = "";
         document.body.classList.remove("gallery-lightbox-open");
@@ -210,25 +238,10 @@
           goPrevious();
           return;
         }
-
-        if (event.key === "Tab") {
-          var focusable = Array.prototype.slice.call(document.querySelectorAll(focusableSelector));
-          if (focusable.length === 0) {
-            event.preventDefault();
-            return;
-          }
-
-          var first = focusable[0];
-          var last = focusable[focusable.length - 1];
-          if (event.shiftKey && document.activeElement === first) {
-            event.preventDefault();
-            last.focus();
-          } else if (!event.shiftKey && document.activeElement === last) {
-            event.preventDefault();
-            first.focus();
-          }
-        }
       });
+
+      window.addEventListener("resize", onViewportChange);
+      window.addEventListener("scroll", onViewportChange, { passive: true });
 
       window.__galleryLightbox = {
         open: open,
@@ -249,49 +262,13 @@
     }
 
     function initControls() {
-      var controls = document.getElementById("sidebar-gallery-controls");
+      var controls = document.getElementById("gallery-controls");
       var prevButton = document.getElementById("gallery-prev");
       var nextButton = document.getElementById("gallery-next");
       var closeButton = document.getElementById("gallery-close");
-      var sidebar = document.getElementById("site-sidebar");
-      var themeToggle = document.getElementById("theme-toggle");
-      var mobileQuery = window.matchMedia("(max-width: 800px)");
-      var openState = false;
 
-      if (!controls || !prevButton || !nextButton || !closeButton || !sidebar || !themeToggle) {
+      if (!controls || !prevButton || !nextButton || !closeButton) {
         return;
-      }
-
-      function getMenuOpen() {
-        return sidebar.getAttribute("data-menu-open") === "true";
-      }
-
-      function refreshVisibility() {
-        var isMobile = mobileQuery.matches;
-        var menuOpen = getMenuOpen();
-
-        if (!openState) {
-          controls.hidden = true;
-          controls.setAttribute("data-open", "false");
-          themeToggle.classList.remove("theme-toggle-gallery-hidden");
-          return;
-        }
-
-        if (isMobile && menuOpen) {
-          controls.hidden = true;
-          controls.setAttribute("data-open", "false");
-          themeToggle.classList.remove("theme-toggle-gallery-hidden");
-          return;
-        }
-
-        controls.hidden = false;
-        controls.setAttribute("data-open", "true");
-
-        if (isMobile) {
-          themeToggle.classList.add("theme-toggle-gallery-hidden");
-        } else {
-          themeToggle.classList.remove("theme-toggle-gallery-hidden");
-        }
       }
 
       function callLightbox(methodName) {
@@ -315,22 +292,9 @@
       });
 
       document.addEventListener("gallerylightbox:statechange", function (event) {
-        openState = Boolean(event.detail && event.detail.open);
-        refreshVisibility();
+        var isOpen = Boolean(event.detail && event.detail.open);
+        controls.hidden = !isOpen;
       });
-
-      if (typeof mobileQuery.addEventListener === "function") {
-        mobileQuery.addEventListener("change", refreshVisibility);
-      } else if (typeof mobileQuery.addListener === "function") {
-        mobileQuery.addListener(refreshVisibility);
-      }
-
-      var observer = new MutationObserver(function () {
-        refreshVisibility();
-      });
-      observer.observe(sidebar, { attributes: true, attributeFilter: ["data-menu-open"] });
-
-      refreshVisibility();
     }
 
     if (document.readyState === "loading") {

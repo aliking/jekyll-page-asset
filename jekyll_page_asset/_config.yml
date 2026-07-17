@@ -56,7 +56,3 @@ exclude:
 # custom
 page_asset:
   asset_root: assets/project_media
-
-stack_transform:
-  seed: 69
-  translate_max: 10

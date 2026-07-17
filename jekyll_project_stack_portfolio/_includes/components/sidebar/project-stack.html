@@ -6,7 +6,7 @@
     {% if project.draft != true %}
       {% stack_row type=project.type project=project current_url=include.current_url %}
     {% endif %}
-    {% endfor %}
+  {% endfor %}
 </div>
 {% else %}
 <p style="color: #9898b8; font-style: italic; margin-top: 2rem;">Projects incoming - check back soon.</p>

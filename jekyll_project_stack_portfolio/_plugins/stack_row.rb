@@ -52,7 +52,7 @@ module Jekyll
       return '' if project.nil?
 
       site        = context.registers[:site]
-      cfg         = site.config.fetch('stack_transform', {})
+      cfg         = Jekyll.configuration.dig("project_stack_portfolio", "stack_transform") || {}
       seed        = cfg.fetch('seed', 42).to_i
       tx_max      = cfg.fetch('translate_max', 20).to_f
 

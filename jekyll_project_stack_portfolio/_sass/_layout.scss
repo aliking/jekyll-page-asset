@@ -614,14 +614,6 @@
     display: none;
   }
 
-  .site-sidebar[data-menu-open="false"] .sidebar-gallery-controls[data-open="true"] {
-    display: flex;
-  }
-
-  .site-sidebar[data-menu-open="true"] .sidebar-gallery-controls {
-    display: none;
-  }
-
   .site-main {
     width: 100%;
     padding-top: calc(7rem + #{$spacing-xl});
