@@ -1,8 +1,8 @@
 ## Run crappy demo site locally
-
+```
 bundle install
 bundle exec jekyll serve --livereload
-
+```
 # jekyll-page-asset
 
 The `page_asset` plugin designed for a project portfolio style ( although it might well work with blog/post style layouts) to make it easy to put assets that relate to a page, onto that page.
@@ -16,33 +16,33 @@ The intent is to make it easy to add media components into project pages by defi
 ### image
 Standard image. This delegates to the `jekyll_picture_tag` plugin which handles responsive images. Any args past the filename are passed through to that plugin, so you can use any of the options it supports.
 
-`{% raw %}{% page_asset image <image-filename> [alt="<alt-text>"] %}{% endraw %}`
+`{% page_asset image <image-filename> [alt="<alt-text>"] %}`
 
 ### foreground video
 i.e. a video that is embedded in the page and can be played by the user.
 
-`{% raw %}{% page_asset video <video-filename> %}{% endraw %}`
+`{% page_asset video <video-filename> %}`
 
 ### background video
 i.e. video that loads and autoplays muted by default.
 
-`{% raw %}{% page_asset video <video-filename> display=background %}{% endraw %}`
+`{% page_asset video <video-filename> display=background %}`
 
 ### scroll scrub video
 Video that loads muted and advances as the user scrolls the page.
 
-`{% raw %}{% page_asset scroll_scrub_video <video-filename> %}{% endraw %}`
+`{% page_asset scroll_scrub_video <video-filename> %}`
 
 ### gallery
 Pass a folder name in the media asset directory and all images in that folder will be displayed in a gallery.
 The generated html and script for this will also write tags to two target mount points in the site, if found.
 `project-asset-gallery-lightbox` is the target for the lightbox html. By default this is styled to fill the viewport area of the component that it is mounted in to act as a full area takeover.
 `project-asset-gallery-controls` is the target for the gallery controls - to move to next/previous images and close the lightbox. This appears when the lightbox is open.
-`{% raw %}{% page_asset gallery <gallery-folder-name> %}{% endraw %}`
+`{% page_asset gallery <gallery-folder-name> %}`
 
 ### fountain script reader
 Simple scrollable script reader for [fountain](https://fountain.io/){:target="_blank"} formatted scripts.
-`{% raw %}{% page_asset fountain <fountain-filename> %}{% endraw %}`
+`{% page_asset fountain <fountain-filename> %}`
 
 # Styling
 Page asset components styles are exported by this gem in `_sass/_page-asset.scss`, but this is not a theme gem, so you need to import them manually.
