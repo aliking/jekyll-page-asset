@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "Liquid tag plugin for project page assets in Jekyll"
   spec.description   = "Provides the page_asset Liquid tag and renderers for image, gallery, video, fountain, and scroll-scrub assets."
   spec.homepage      = "https://example.com"
-  spec.license       = "MIT"
+  spec.license       = "GPL-3.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
