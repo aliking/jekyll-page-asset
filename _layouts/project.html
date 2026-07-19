@@ -5,7 +5,7 @@ layout: default
   <header class="page-header">
     <div class="header-text-wrapper">
       {% if page.hero %}
-        {% page_asset image {{page.hero}} %}
+        {% page_asset image {{page.hero}} alt="{{ page.title }} Hero image" %}
       {% endif %}
       {% if page.show_title %}
       <h1 class="page-title">{{ page.title }}</h1>

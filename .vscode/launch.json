@@ -8,7 +8,7 @@
             "name": "Debug Jekyll Serve",
             "type": "ruby_lsp",
             "request": "launch",
-            "program": "${workspaceRoot}/bin/jekyll serve --livereload --trace --verbose",
+            "program": "bundle exec jekyll serve --livereload --trace --verbose",
         }
     ]
 }

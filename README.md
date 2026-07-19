@@ -41,7 +41,8 @@ The generated html and script for this will also write tags to two target mount 
 `{% page_asset gallery <gallery-folder-name> %}`
 
 ### fountain script reader
-Simple scrollable script reader for [fountain](https://fountain.io/){:target="_blank"} formatted scripts.
+Simple scrollable script reader for [fountain](https://fountain.io/) formatted scripts.
+
 `{% page_asset fountain <fountain-filename> %}`
 
 # Styling

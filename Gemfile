@@ -9,3 +9,8 @@ group :jekyll_plugins do
   gem "jekyll-seo-tag", "~> 2.8"
   gem "jekyll_picture_tag", "~> 2.0"
 end
+
+group :test do
+  gem "html-proofer", "~> 4.4"
+  gem "minitest", "~> 5.22"
+end

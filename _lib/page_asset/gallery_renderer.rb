@@ -24,7 +24,7 @@ module Jekyll
           asset_path = File.join(gallery_asset_root, filename)
           src = "/#{asset_path}"
           alt = alt_text_for(filename, index)
-          picture_tag = render_picture(context, asset_path)
+          picture_tag = render_thumbnail(context, asset_path)
 
           <<~HTML
             <button
@@ -57,9 +57,9 @@ module Jekyll
            .sort_by(&:downcase)
       end
 
-      def render_picture(context, path)
+      def render_thumbnail(context, path)
         escaped_path = path.gsub('"', '\\"')
-        liquid = "{% picture \"#{escaped_path}\" %}"
+        liquid = "{% picture \"#{escaped_path}\" alt=\"thumbnail\" %}"
         Liquid::Template.parse(liquid).render(context)
       end
 
