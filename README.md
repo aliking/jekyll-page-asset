@@ -5,7 +5,7 @@ bundle exec jekyll serve --livereload
 ```
 # jekyll-page-asset
 
-The `page_asset` plugin designed for a project portfolio style ( although it might well work with blog/post style layouts) to make it easy to put assets that relate to a page, onto that page.
+The `page_asset` extensible plugin designed for a project portfolio style ( although it might well work with blog/post style layouts) to make it easy to put assets that relate to a page, onto that page.
 
 It's essentially a convenience tag for adding components that reference media files into project pages. The media files are stored in the `assets/project_media/<project-slug>/` folder and can be referenced by just a relative path to that folder.
 
@@ -14,7 +14,7 @@ The intent is to make it easy to add media components into project pages by defi
 
 ## Supported components
 ### image
-Standard image. This delegates to the `jekyll_picture_tag` plugin which handles responsive images. Any args past the filename are passed through to that plugin, so you can use any of the options it supports.
+Standard image. This delegates to the [jekyll_picture_tag](https://github.com/rbuchberger/jekyll_picture_tag) plugin which handles responsive images. Any args past the filename are passed through to that plugin, so you can use any of the options it supports.
 
 `{% page_asset image <image-filename> [alt="<alt-text>"] %}`
 
@@ -101,6 +101,8 @@ end
 ```
 and has the following variables available:
 
+| Argument | Description |
+| :--- | :--- |
 | @type | component type string |
 | @asset_path_arg | requested path argument from the tag |
 | @rest | all the rest of the args from the tag (useful for passing through) |
