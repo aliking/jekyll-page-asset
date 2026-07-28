@@ -286,6 +286,8 @@
     border-radius: $radius-md;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+    flex-shrink: 1;
+    min-height: 0;
 }
 
 .gallery-lightbox-button {
