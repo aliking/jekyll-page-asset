@@ -15,6 +15,7 @@
           '<div class="gallery-lightbox" id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>' +
           '<div class="gallery-lightbox-inner" tabindex="-1">' +
           '<img class="gallery-lightbox-image" id="gallery-lightbox-image" src="" alt="">' +
+          '<div class="gallery-lightbox-desc" id="gallery-lightbox-desc">' +
           '</div>' +
           '</div>';
         lightboxMount.setAttribute(MOUNTED_ATTR, "true");
@@ -37,6 +38,7 @@
     function initLightbox() {
       var lightbox = document.getElementById("gallery-lightbox");
       var lightboxImage = document.getElementById("gallery-lightbox-image");
+      var lightboxDesc = document.getElementById("gallery-lightbox-desc");
       var lightboxMount = document.getElementById("page-asset-gallery-lightbox");
       var focusableSelector = ".gallery-controls .gallery-control-button";
 
@@ -86,7 +88,8 @@
           .map(function (thumb) {
             return {
               src: thumb.getAttribute("data-gallery-src"),
-              alt: thumb.getAttribute("data-gallery-alt") || "Gallery image"
+              alt: thumb.getAttribute("data-gallery-alt") || "Gallery image",
+              desc: thumb.getAttribute("data-gallery-desc")
             };
           });
       }
@@ -110,6 +113,7 @@
         var current = state.items[state.index];
         lightboxImage.src = current.src;
         lightboxImage.alt = current.alt;
+        lightboxDesc.innerHTML = current.desc;
         emitState();
       }
 

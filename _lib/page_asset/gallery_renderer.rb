@@ -22,8 +22,11 @@ module Jekyll
 
         thumbnails = images.each_with_index.map do |filename, index|
           asset_path = File.join(gallery_asset_root, filename)
+          supporting_text = get_supporting_text(context, asset_path)
+
           src = "/#{asset_path}"
-          alt = alt_text_for(filename, index)
+          alt = supporting_text.dig(:args, 'alt') || alt_text_for(filename, index)
+          description = supporting_text.dig(:body)
           picture_tag = render_thumbnail(context, asset_path)
 
           <<~HTML
@@ -35,6 +38,7 @@ module Jekyll
               data-gallery-index="#{index}"
               data-gallery-src="#{html_escape(src)}"
               data-gallery-alt="#{html_escape(alt)}"
+              data-gallery-desc="#{html_escape(description)}"
               aria-label="Open image #{index + 1}">
               #{picture_tag}
             </button>
@@ -68,6 +72,32 @@ module Jekyll
         return "Gallery image #{index + 1}" if stem.empty?
 
         stem.gsub(/\s+/, " ")
+      end
+
+      def get_supporting_text(context, path)
+        # find supporting md file if it exists
+        supporting_md = File.join(File.dirname(path) , File.basename(path, ".*") + ".md")
+        if File.exist?(supporting_md)
+          file_contents = File.read(supporting_md)
+          site = context.registers[:site]
+
+          if file_contents =~ Jekyll::Document::YAML_FRONT_MATTER_REGEXP
+            front_matter_string = $1
+            body_content = $POSTMATCH # Captures everything after the front matter block
+
+            # Parse the front matter string using Jekyll's internal parser
+            front_matter = SafeYAML.load(front_matter_string)
+          else
+            body_content = file_contents
+          end
+
+          return {
+            args: front_matter,
+            body: site.find_converter_instance(Jekyll::Converters::Markdown)
+                  .convert(body_content)
+          }
+        end
+        {}
       end
 
       def empty_state_html(gallery_id)

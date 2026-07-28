@@ -34,11 +34,15 @@ Video that loads muted and advances as the user scrolls the page.
 `{% page_asset scroll_scrub_video <video-filename> %}`
 
 ### gallery
-Pass a folder name in the media asset directory and all images in that folder will be displayed in a gallery.
+Pass a folder name in the media asset directory and all images in that folder will be displayed in a gallery. Image files in the gallery can also have a 'support file' - a markdown file with the same name as the image. Support files can give a custom `alt` value in frontmatter, and markdown body is displayed as an image description in the lightbox view.
+
 The generated html and script for this will also write tags to two target mount points in the site, if found.
-`project-asset-gallery-lightbox` is the target for the lightbox html. By default this is styled to fill the viewport area of the component that it is mounted in to act as a full area takeover.
-`project-asset-gallery-controls` is the target for the gallery controls - to move to next/previous images and close the lightbox. This appears when the lightbox is open.
+
+* `project-asset-gallery-lightbox` is the target for the lightbox html. By default this is styled to fill the viewport area of the component that it is mounted in to act as a full area takeover.
+
+* `project-asset-gallery-controls` is the target for the gallery controls - to move to next/previous images and close the lightbox. This appears when the lightbox is open.
 `{% page_asset gallery <gallery-folder-name> %}`
+
 
 ### fountain script reader
 Simple scrollable script reader for [fountain](https://fountain.io/) formatted scripts.
