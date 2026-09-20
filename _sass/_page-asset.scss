@@ -313,3 +313,25 @@ body.gallery-lightbox-open {
         top: $spacing-sm;
     }
 }
+
+// __ Video ___________________________________________________
+.background-video {
+  width: 100%;
+  height: auto;
+}
+
+.foreground-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  background: $bg-card;
+  box-shadow: $shadow-card;
+}
+
+// __ Audio ___________________________________________________
+.page-asset-audio {
+  width: 100%;
+  display: block;
+}
