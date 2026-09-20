@@ -317,21 +317,6 @@
   justify-content: center;
 }
 
-// __ Video ___________________________________________________
-.background-video {
-  width: 100%;
-  height: auto;
-}
-
-.foreground-video {
-  width: 100%;
-  height: auto;
-  display: block;
-  border: 1px solid $border-color;
-  border-radius: $radius-md;
-  background: $bg-card;
-  box-shadow: $shadow-card;
-}
 
 // ── Divider ornament ─────────────────────────────────────────
 .ornament {
