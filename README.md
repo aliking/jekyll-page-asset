@@ -38,10 +38,13 @@ Pass a folder name in the media asset directory and all images in that folder wi
 
 The generated html and script for this will also write tags to two target mount points in the site, if found.
 
-* `project-asset-gallery-lightbox` is the target for the lightbox html. By default this is styled to fill the viewport area of the component that it is mounted in to act as a full area takeover.
+* `page-asset-gallery-lightbox` is the target for the lightbox html. By default this is styled to fill the viewport area of the component that it is mounted in to act as a full area takeover. This is optional, but if not included, the gallery will only display as thumbnails and cannot be expanded.
 
-* `project-asset-gallery-controls` is the target for the gallery controls - to move to next/previous images and close the lightbox. This appears when the lightbox is open.
-`{% page_asset gallery <gallery-folder-name> %}`
+* `page-asset-gallery-controls` is the target for the gallery controls - to move to next/previous images and close the lightbox. This appears when the lightbox is open. Optional, if not included, the controls will be rendered at the top of the lightbox.
+
+Gallery can take optional `title` and `description` arguments to provide a heading and descriptive text for the gallery.
+`{% page_asset gallery <gallery-folder-name> [title="<title-text>"] [description="<description-text>"] %}`
+
 
 
 ### fountain script reader

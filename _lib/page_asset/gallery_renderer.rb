@@ -45,9 +45,12 @@ module Jekyll
           HTML
         end
 
+        title_html = render_title(@params["title"])
+        description_html = render_description(@params["description"])
+
         <<~HTML + gallery_template
           <section class="project-gallery" data-gallery="#{html_escape(@asset_path_arg)}" aria-label="Image gallery">
-            <div class="project-gallery-grid">
+            #{title_html}#{description_html}<div class="project-gallery-grid">
               #{thumbnails.join("\n")}
             </div>
           </section>
@@ -106,6 +109,16 @@ module Jekyll
             <p class="project-gallery-empty">No gallery images found.</p>
           </section>
         HTML
+      end
+
+      def render_title(title)
+        return "" if title.nil? || title.to_s.strip.empty?
+        "<h2 class=\"project-gallery-title\">#{html_escape(title)}</h2>\n"
+      end
+
+      def render_description(description)
+        return "" if description.nil? || description.to_s.strip.empty?
+        "<p class=\"project-gallery-description\">#{html_escape(description)}</p>\n"
       end
 
       def html_escape(value)
