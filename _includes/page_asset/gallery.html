@@ -21,6 +21,16 @@
         lightboxMount.setAttribute(MOUNTED_ATTR, "true");
       }
 
+      if (!controlsMount) {
+        var fallbackControlsDiv = document.createElement("div");
+        fallbackControlsDiv.id = "page-asset-gallery-controls-fallback";
+        fallbackControlsDiv.className = "gallery-controls-fallback";
+        if (lightboxMount) {
+          lightboxMount.insertBefore(fallbackControlsDiv, lightboxMount.firstChild);
+        }
+        controlsMount = fallbackControlsDiv;
+      }
+
       if (controlsMount) {
         controlsMount.innerHTML =
           '<div class="gallery-controls" id="gallery-controls" hidden aria-label="Gallery controls">' +

@@ -20,6 +20,6 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 a second gallery. project pages can have multiple galleries, just put separate gallery folders in the assets/project_media/ folder
 
 
-`{% raw %}{% page_asset gallery gallery2 %}{% endraw %}`
-{% page_asset gallery gallery2 %}
+`{% raw %}{% page_asset gallery gallery2 title="Second Gallery" description="This gallery has description text." %}{% endraw %}`
+{% page_asset gallery gallery2 title="Second Gallery" description="This gallery has description text." %}
 
